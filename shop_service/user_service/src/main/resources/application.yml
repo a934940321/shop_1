@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql:///week16
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+dubbo:
+  registry:
+    address: zookeeper://192.168.79.188:2181
+  application:
+    name: user_service
+  protocol:
+    port: -1
+    name: dubbo #–≠“È
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

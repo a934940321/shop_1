@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.dao.BuserMapper">
+
+<!--维护关系映射-->
+    <resultMap id="myResultMap" type="com.qf.entity.BackUser">
+
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+
+<!--对多，用户和角色关系-->
+        <collection property="roles" ofType="com.qf.entity.Role">
+            <id column="id" property="id" />
+            <result column="rolename" property="roleName"/>
+            <result column="rolealias" property="roleAlias"/>
+        </collection>
+<!--对多，用户和权限的关系-->
+        <collection property="powers" ofType="com.qf.entity.Power">
+            <id column="powerid" property="id"/>
+            <result column="powerpid" property="pid"/>
+            <result column="powerstatus" property="status"/>
+            <result column="powerpath" property="powerpath"/>
+            <result column="powername" property="powername"/>
+        </collection>
+
+    </resultMap>
+
+
+
+    <select id="checkBuser" resultMap="myResultMap">
+      select *,p.id AS powerid, p.pid AS powerpid, p.status AS powerstatus from back_user bu
+        left JOIN user_role_table urt ON urt.uid = bu.id
+        left JOIN role r ON urt.rid = r.id
+        left JOIN role_power_table rpt ON rpt.rid = r.id
+        left JOIN power p ON rpt.pid = p.id
+      where username = #{username}
+    </select>
+
+</mapper>
