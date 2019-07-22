@@ -17,15 +17,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin().loginPage("/buser/toLogin").loginProcessingUrl("/buser/login")
-                  .failureUrl("/buser/toLogin").permitAll()
+                  .failureUrl("/buser/toLogin?error=1").permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .authorizeRequests()
                     .mvcMatchers("/resources/**").permitAll()
                     .mvcMatchers("/").authenticated()
-                    .anyRequest().access("@perssionHandler.hasPerssion(request,authentication)")
-                    /*.anyRequest().authenticated()*/
+                    /*.anyRequest().access("@perssionHandler.hasPerssion(request,authentication)")*/
+                    .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
                 //处理iframe请求，让security放行

@@ -7,6 +7,7 @@
         <module>entity</module>
         <module>commons</module>
         <module>service_api</module>
+        <module>rabbitmq_Demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
